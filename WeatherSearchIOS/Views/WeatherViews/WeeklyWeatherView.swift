@@ -1,42 +1,26 @@
-//
-//  WeeklyWeatherView.swift
-//  WeatherSearchIOS
-//
-//  Created by Waterdog on 2024/12/10.
-//
-
 import SwiftUI
 
 struct WeeklyWeatherView: View {
-    // Sample data for the week
-    let weeklyWeather = [
-        DailyWeather(date: "12/25/2024", weatherIcon: "Cloudy", sunriseTime: "6:30 AM", sunsetTime: "5:45 PM"),
-        DailyWeather(date: "11/16/2024", weatherIcon: "Cloudy", sunriseTime: "6:31 AM", sunsetTime: "5:44 PM"),
-        DailyWeather(date: "11/17/2024", weatherIcon: "Clear", sunriseTime: "6:32 AM", sunsetTime: "5:43 PM"),
-        DailyWeather(date: "11/18/2024", weatherIcon: "Light Rain", sunriseTime: "6:33 AM", sunsetTime: "5:42 PM"),
-        DailyWeather(date: "11/19/2024", weatherIcon: "Light Wind", sunriseTime: "6:34 AM", sunsetTime: "5:41 PM"),
-        DailyWeather(date: "11/20/2024", weatherIcon: "Mostly Clear", sunriseTime: "6:35 AM", sunsetTime: "5:40 PM"),
-        DailyWeather(date: "11/21/2024", weatherIcon: "Mostly Clear", sunriseTime: "6:35 AM", sunsetTime: "5:40 PM")
-    ]
+    @ObservedObject var viewModel: WeatherViewModel // Dynamic data from ViewModel
     
     var body: some View {
         ZStack(alignment: .top) { // Scrollable view
             LazyVStack { // Vertically stacked rows
-                ForEach(weeklyWeather) { weather in
+                ForEach(viewModel.weeklyWeather) { weather in
                     HStack(alignment: .center) {
-                        Text(weather.date) // Date
+                        Text(weather.getFormattedDate() )
                             .frame(width: 90)
-                        Image(weather.weatherIcon) // Weather icon
+                        Image(systemName: weather.weatherCode ?? "cloud")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 30, height: 30)
-                        Text(weather.sunriseTime) // Sunrise time
+                        Text(weather.getSunriseTime() )
                             .frame(width: 70)
                         Image("sun-rise") // Sunrise icon
                             .resizable()
                             .scaledToFit()
                             .frame(width: 30, height: 30)
-                        Text(weather.sunsetTime) // Sunset time
+                        Text(weather.getSunsetTime() )
                             .frame(width: 70)
                         Image("sun-set") // Sunset icon
                             .resizable()
@@ -45,7 +29,8 @@ struct WeeklyWeatherView: View {
                     }
                     .padding(.horizontal, 20)
                     
-                    if weather != weeklyWeather.last { // Add divider between rows
+                    // Add divider between rows, except for the last row
+                    if weather != viewModel.weeklyWeather.last {
                         Divider()
                             .background(Color.white.opacity(0.8))
                             .padding(.horizontal, 20)
@@ -55,6 +40,9 @@ struct WeeklyWeatherView: View {
             .background(Color.white.opacity(0.8)) // Add background color for clarity
             .shadow(color: .gray.opacity(0.4), radius: 4, x: 0, y: 2) // Add shadow
             .cornerRadius(8)
+        }
+        .onAppear {
+            viewModel.fetchWeather(latitude: 40.71, longitude: -74.01) // Example: New York City coordinates
         }
     }
 }
@@ -66,9 +54,26 @@ struct WeeklyWeatherView: View {
                 Image("App_background")
                     .resizable()
                     .scaledToFill()
-                WeeklyWeatherView()
-                    .padding(.horizontal, 30)
-                    .padding(.vertical, 20)
+                
+                WeeklyWeatherView(
+                    viewModel: WeatherViewModel() // Provide a mock ViewModel for the preview
+                )
+                .onAppear {
+                    // Inject mock data for the preview
+                    let mockData = [
+                        WeatherData(date: "2024-12-25", weatherCode: "cloud.sun", sunriseTime: "6:30 AM", sunsetTime: "5:45 PM"),
+                        WeatherData(date: "11/16/2024", weatherCode: "cloud", sunriseTime: "6:31 AM", sunsetTime: "5:44 PM"),
+                        WeatherData(date: "11/17/2024", weatherCode: "sun.max", sunriseTime: "6:32 AM", sunsetTime: "5:43 PM"),
+                        WeatherData(date: "11/18/2024", weatherCode: "cloud.rain", sunriseTime: "6:33 AM", sunsetTime: "5:42 PM"),
+                        WeatherData(date: "11/19/2024", weatherCode: "wind", sunriseTime: "6:34 AM", sunsetTime: "5:41 PM"),
+                        WeatherData(date: "11/20/2024", weatherCode: "moon.stars", sunriseTime: "6:35 AM", sunsetTime: "5:40 PM"),
+                        WeatherData(date: "11/21/2024", weatherCode: "moon.stars", sunriseTime: "6:35 AM", sunsetTime: "5:40 PM")
+                    ]
+                    WeeklyWeatherView(viewModel: WeatherViewModel())
+                        .viewModel.weeklyWeather = mockData
+                }
+                .padding(.horizontal, 30)
+                .padding(.vertical, 20)
             }
         }
     }

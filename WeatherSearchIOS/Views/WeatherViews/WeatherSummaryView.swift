@@ -1,17 +1,7 @@
-//
-//  WeatherSummaryView.swift
-//  WeatherSearchIOS
-//
-//  Created by Waterdog on 2024/12/9.
-//
-
 import SwiftUI
 
 struct WeatherSummaryView: View {
-    @State var temperature: String = "80°F"
-    @State var condition: String = "Clear"
-    @State var cityName: String = "Los Angeles"
-    @State var weatherImage: String = "Clear"
+    @ObservedObject var viewModel: WeatherViewModel // Bind to the ViewModel
     
     var body: some View {
         ViewThatFits {
@@ -22,22 +12,23 @@ struct WeatherSummaryView: View {
                         RoundedRectangle(cornerRadius: 16)
                             .stroke(Color.white, lineWidth: 1) // White border with 2pt thickness
                     )
+                
                 HStack {
-                    Image(weatherImage) // Replace with dynamic image if available
+                    Image(systemName: viewModel.currentWeather?.weatherCode ?? "cloud") // Dynamic weather image
                         .resizable()
                         .scaledToFit()
                         .frame(width: 150, height: 150)
+                    
                     VStack(alignment: .leading, spacing: 20) {
-                        Text("80°F")
+                        Text(viewModel.currentWeather?.temperatureHigh ?? "--°F") // High temperature
                             .font(.system(size: 24, weight: .bold))
-                        Text("Cloudy")
-                        Text("Los Angeles")
+                        Text(viewModel.cityName) // City
+                        Text(viewModel.currentWeather?.getFormattedDate() ?? "--/--/----") // Date
                             .font(.title2)
                             .bold()
                     }
                     .padding()
                 }
-                
             }
             .frame(height: 200)
         }
@@ -47,10 +38,33 @@ struct WeatherSummaryView: View {
 #Preview {
     struct WeatherSummary_Preview: View {
         var body: some View {
+            
             ZStack {
-                WeatherSummaryView()
-            }.background(Color.teal)
+                // Simulated data for preview
+                let mockViewModel: WeatherViewModel = {
+                    let viewModel = WeatherViewModel()
+                    viewModel.currentWeather = WeatherData(
+                        date: "2024-12-10T12:00:00",
+                        weatherCode: "cloud.sun",
+                        sunriseTime: "6:30 AM",
+                        sunsetTime: "5:45 PM",
+                        humidity: "75%",
+                        temperatureHigh: "55°F",
+                        temperatureLow: "40°F",
+                        visibility: "10 mi",
+                        windSpeed: "12 mph"
+                    )
+                    return viewModel
+                }()
+                
+                WeatherSummaryView(
+                    viewModel: mockViewModel
+                )
+            }
+            .background(Color.teal)
         }
     }
     return WeatherSummary_Preview()
 }
+
+
