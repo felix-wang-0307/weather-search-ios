@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchBar: View {
+struct SearchBarView: View {
     @Binding var cityName: String  // Use @Binding to receive the city name from a parent view
 
     var body: some View {
@@ -34,7 +34,16 @@ struct SearchBar: View {
         @State private var cityName: String = "Los Angeles"  // Simulate the binding with @State
 
         var body: some View {
-            SearchBar(cityName: $cityName)  // Bind the @State value
+            ViewThatFits {
+                ZStack(alignment: .top) {
+                    Image("App_background")
+                        .resizable()
+                        .scaledToFill()
+                        .edgesIgnoringSafeArea(.all) // Ensure background covers the screen
+                    SearchBarView(cityName: $cityName)  // Bind the @State value
+                        .padding()
+                }
+            }
         }
     }
 

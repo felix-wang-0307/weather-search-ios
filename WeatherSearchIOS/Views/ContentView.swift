@@ -14,7 +14,7 @@ struct ContentView: View {
     @State var cityName: String = ""
     var body: some View {
         VStack {
-            SearchBar(cityName: $cityName)
+            WeatherView()
         }
     }
 }
