@@ -41,9 +41,6 @@ struct WeeklyWeatherView: View {
             .shadow(color: .gray.opacity(0.4), radius: 4, x: 0, y: 2) // Add shadow
             .cornerRadius(8)
         }
-        .onAppear {
-            viewModel.fetchWeather(latitude: 40.71, longitude: -74.01) // Example: New York City coordinates
-        }
     }
 }
 

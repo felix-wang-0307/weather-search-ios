@@ -1,14 +1,12 @@
 import SwiftUI
 import Combine
-import UIKit
-import CoreLocation
 
 struct WeatherView: View {
     @StateObject private var viewModel = WeatherViewModel()
     @StateObject private var locationManager = LocationManager()
     @StateObject private var autocompleteViewModel = AutocompleteViewModel()
     @State private var cityName: String = ""
-    @State private var selectedCity: String = ""
+    @State private var selectedCity: String? = nil
     @State private var showSuggestions: Bool = false
     @State private var searchBarFrame: CGRect = .zero
     private let searchBarController: SearchBarController
@@ -26,10 +24,14 @@ struct WeatherView: View {
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        // Tap background to dismiss suggestions
+                        showSuggestions = false
+                    }
 
                 ScrollView {
                     VStack(spacing: 20) {
-                        // UISearchBar integrated via UIViewRepresentable
+                        // UISearchBar
                         UIKitSearchBar(text: $cityName, onTextChanged: { newText in
                             searchBarController.onTextChanged(newText)
                             showSuggestions = !newText.isEmpty && !autocompleteViewModel.suggestions.isEmpty
@@ -42,7 +44,6 @@ struct WeatherView: View {
                             }
                         )
 
-                        // Display weather summaries as before
                         WeatherSummaryView(viewModel: viewModel)
                             .padding(.horizontal, 15)
                         WeatherDetailsView(viewModel: viewModel)
@@ -53,27 +54,31 @@ struct WeatherView: View {
                     .padding()
                 }
 
-                // Suggestions dropdown
-                if showSuggestions {
-                    Color.black.opacity(0.3)
-                        .edgesIgnoringSafeArea(.all)
-                        .onTapGesture {
+                // Suggestions table just below the search bar
+                if showSuggestions && !autocompleteViewModel.suggestions.isEmpty {
+                    UIKitSuggestionsTableView(
+                        suggestions: autocompleteViewModel.suggestions,
+                        onSelect: { suggestion in
+                            cityName = suggestion.city
                             showSuggestions = false
+                            selectedCity = suggestion.city
                         }
-
-                    VStack {
-                        Spacer().frame(height: searchBarFrame.maxY)
-                        SuggestionsDropdownView(
-                            suggestions: autocompleteViewModel.suggestions,
-                            onSelect: { suggestion in
-                                cityName = suggestion.city
-                                showSuggestions = false
-                                handleCitySelection(suggestion.city)
-                            }
-                        )
-                        .padding(.horizontal)
-                    }
+                    )
+                    .frame(maxWidth: searchBarFrame.width, maxHeight: 200)
+                    // Position it just below the search bar
+                    .position(x: searchBarFrame.midX, y: searchBarFrame.maxY + 5)
+                    // Adjust the +5 as needed for desired spacing
                 }
+
+                // Navigation to CityDetailView
+                NavigationLink(
+                    destination: CityDetailView(cityName: selectedCity ?? ""),
+                    tag: selectedCity ?? "",
+                    selection: $selectedCity
+                ) {
+                    EmptyView()
+                }
+                .hidden()
             }
             .onAppear {
                 fetchWeatherForCurrentLocation()
@@ -85,9 +90,9 @@ struct WeatherView: View {
                 fetchWeatherForCity(newCityName)
             }
         }
+       
     }
 
-    // Handle city selection
     private func handleCitySelection(_ city: String) {
         selectedCity = city
         fetchWeatherForCity(city)

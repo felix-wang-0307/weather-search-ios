@@ -30,7 +30,7 @@ struct UIKitSearchBar: UIViewRepresentable {
         let searchBar = UISearchBar(frame: .zero)
         searchBar.delegate = context.coordinator
         searchBar.placeholder = "Enter City Name"
-        searchBar.autocapitalizationType = .words
+        searchBar.autocapitalizationType = .none
         // Customize appearance as needed:
         searchBar.searchBarStyle = .prominent
         searchBar.barTintColor = .white
