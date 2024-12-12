@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "41B046FF-A943-43BA-BD7A-B3177729E22E",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "areLocalizationScreenshotsEnabled" : true,
+    "codeCoverage" : false,
+    "locationScenario" : {
+      "identifier" : "San Francisco, CA, USA",
+      "referenceType" : "built-in"
+    },
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:WeatherSearchIOS.xcodeproj",
+      "identifier" : "FCA2F6E82D0729750067EF0F",
+      "name" : "WeatherSearchIOS"
+    }
+  },
+  "testTargets" : [
+
+  ],
+  "version" : 1
+}
