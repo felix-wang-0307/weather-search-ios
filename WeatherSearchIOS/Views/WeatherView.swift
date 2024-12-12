@@ -1,42 +1,93 @@
 import SwiftUI
 
-extension Notification.Name {
-    static let cityCoordinatesUpdated = Notification.Name("cityCoordinatesUpdated")
-}
-
-
 struct WeatherView: View {
     @StateObject private var viewModel = WeatherViewModel() // Weather ViewModel
     @StateObject private var locationManager = LocationManager() // Location Manager
     @StateObject private var autocompleteViewModel = AutocompleteViewModel() // Autocomplete ViewModel
     @State private var cityName: String = "" // Bind to the SearchBarView
+    @State private var selectedCity: String = "" // Track selected city
+    @State private var showSuggestions: Bool = false // Control visibility of dropdown
+    @State private var searchBarFrame: CGRect = .zero // Track search bar position
+    private let searchBarController: SearchBarController
+
+    init() {
+        let autocompleteViewModel = AutocompleteViewModel()
+        self._autocompleteViewModel = StateObject(wrappedValue: autocompleteViewModel)
+        self.searchBarController = SearchBarController(viewModel: autocompleteViewModel)
+    }
 
     var body: some View {
         ZStack(alignment: .top) {
+            // Background Image
             Image("App_background")
                 .resizable()
                 .scaledToFill()
                 .edgesIgnoringSafeArea(.all)
-            
-            VStack(spacing: 20) {
-                SearchBarView(cityName: $cityName, viewModel: autocompleteViewModel)
-                    .onChange(of: cityName) { newValue in
-                        fetchWeatherForCity(newValue)
+
+            // Main Content ScrollView
+            ScrollView {
+                VStack(spacing: 20) {
+                    // Search Bar with Dropdown
+                    SearchBarView(cityName: $cityName, viewModel: autocompleteViewModel, controller: searchBarController) { selectedCity in
+                        handleCitySelection(selectedCity)
                     }
-                
-                WeatherSummaryView(viewModel: viewModel)
-                    .padding(.horizontal, 15)
-                WeatherDetailsView(viewModel: viewModel)
-                    .padding(.horizontal, 15)
-                WeeklyWeatherView(viewModel: viewModel)
-                    .padding(.horizontal, 15)
+                    .background(
+                        GeometryReader { geo in
+                            Color.clear
+                                .onAppear {
+                                    searchBarFrame = geo.frame(in: .global) // Capture search bar frame
+                                }
+                        }
+                    )
+                    .onChange(of: cityName) { _ in
+                        // Toggle suggestions based on input
+                        showSuggestions = !cityName.isEmpty && !autocompleteViewModel.suggestions.isEmpty
+                    }
+
+                    WeatherSummaryView(viewModel: viewModel)
+                        .padding(.horizontal, 15)
+                    WeatherDetailsView(viewModel: viewModel)
+                        .padding(.horizontal, 15)
+                    WeeklyWeatherView(viewModel: viewModel)
+                        .padding(.horizontal, 15)
+                }
+                .padding()
             }
-            .padding()
+
+            // Dropdown Layer
+            if showSuggestions {
+                // Background overlay to block interaction with underlying views
+                Color.black.opacity(0.3)
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        // Dismiss dropdown on tap
+                        showSuggestions = false
+                    }
+
+                // Dropdown positioned below the search bar
+                VStack {
+                    Spacer().frame(height: searchBarFrame.maxY) // Push to the correct position
+                    SuggestionsDropdownView(
+                        suggestions: autocompleteViewModel.suggestions,
+                        onSelect: { suggestion in
+                            cityName = suggestion.city
+                            showSuggestions = false // Hide dropdown
+                            handleCitySelection(suggestion.city)
+                        }
+                    )
+                    .padding(.horizontal)
+                }
+            }
         }
         .onAppear {
-            // Fetch weather data for the user's current location on app launch
             fetchWeatherForCurrentLocation()
         }
+    }
+
+    // Handle city selection
+    private func handleCitySelection(_ city: String) {
+        selectedCity = city
+        fetchWeatherForCity(city)
     }
 
     // Fetch weather data based on the user's current location
@@ -46,13 +97,13 @@ struct WeatherView: View {
         viewModel.cityName = locationManager.cityName
     }
 
-    // Fetch weather data for a manually entered city
+    // Fetch weather data for a selected city
     private func fetchWeatherForCity(_ city: String) {
-        // Trigger geocoding or fetch based on user input
         GeocodingController().fetchCoordinates(for: city) { result in
             switch result {
             case .success(let coordinates):
-                NotificationCenter.default.post(name: .cityCoordinatesUpdated, object: coordinates)
+                viewModel.fetchWeather(latitude: coordinates.latitude, longitude: coordinates.longitude)
+                viewModel.cityName = city // Update city name in the ViewModel
             case .failure(let error):
                 print("Error fetching coordinates: \(error.localizedDescription)")
             }

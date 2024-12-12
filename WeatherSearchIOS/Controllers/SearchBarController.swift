@@ -1,18 +1,38 @@
 import Foundation
+import Combine
 
 class SearchBarController {
     private let viewModel: AutocompleteViewModel
-
+    private var fetchCancellable: AnyCancellable? // Manage Combine subscriptions
+    
     init(viewModel: AutocompleteViewModel) {
         self.viewModel = viewModel
     }
 
-    // Trigger fetching suggestions when text changes
+    // Handle text input changes and fetch suggestions
     func onTextChanged(_ input: String) {
         guard !input.isEmpty else {
-            viewModel.suggestions = [] // Clear suggestions when input is empty
+            clearSuggestions()
             return
         }
-        viewModel.fetchAutocompleteSuggestions(input: input)
+        fetchSuggestions(for: input)
+    }
+
+    // Fetch autocomplete suggestions through the ViewModel
+    private func fetchSuggestions(for input: String) {
+        fetchCancellable = viewModel.fetchAutocompleteSuggestionsPublisher(input: input)
+            .sink(receiveCompletion: { completion in
+                if case .failure(let error) = completion {
+                    print("Error fetching suggestions: \(error.localizedDescription)")
+                }
+            }, receiveValue: { suggestions in
+                self.viewModel.suggestions = suggestions
+            })
+    }
+
+    // Clear suggestions when input is empty or reset
+    private func clearSuggestions() {
+        viewModel.suggestions = []
+        fetchCancellable?.cancel()
     }
 }
