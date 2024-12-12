@@ -3,8 +3,8 @@ import CoreLocation
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var cityName: String = "Unknown Location"
-    @Published var latitude: Double = 42.3601
-    @Published var longitude: Double = -71.0589
+    @Published var latitude: Double = 0
+    @Published var longitude: Double = 0
 
     private let locationManager = CLLocationManager()
 
@@ -42,4 +42,4 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             locationManager.startUpdatingLocation()
         }
     }
-}
+} 

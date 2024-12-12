@@ -1,7 +1,7 @@
-import SwiftUI
+import Combine
 import Alamofire
 import SwiftyJSON
-import Combine
+import Foundation
 
 class WeatherViewModel: ObservableObject {
     @Published var weeklyWeather: [WeatherData] = [] // Weekly weather data
@@ -9,6 +9,14 @@ class WeatherViewModel: ObservableObject {
     @Published var cityName: String = "Unknown" // Current city name
 
     private var baseUrl: String = "https://weather-search-web-571.wn.r.appspot.com" // API base URL
+    private var cancellables = Set<AnyCancellable>()
+
+    init(locationManager: LocationManager) {
+        // Bind the LocationManager's cityName to the WeatherViewModel's cityName
+        locationManager.$cityName
+            .assign(to: \.cityName, on: self)
+            .store(in: &cancellables)
+    }
 
     /// Fetch weather data based on latitude and longitude
     func fetchWeather(latitude: Double, longitude: Double) {

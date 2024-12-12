@@ -5,20 +5,18 @@ struct SuggestionsDropdownView: View {
     let onSelect: (AutocompleteSuggestion) -> Void
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                ForEach(suggestions, id: \.city) { suggestion in
-                    Button(action: {
-                        onSelect(suggestion)
-                    }) {
-                        Text("\(suggestion.city), \(suggestion.state)")
-                            .padding(10)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(Color.white)
-                            .foregroundColor(.primary)
-                    }
-                    .buttonStyle(PlainButtonStyle())
+        VStack(alignment: .leading, spacing: 0) {
+            ForEach(suggestions, id: \.city) { suggestion in
+                Button(action: {
+                    onSelect(suggestion)
+                }) {
+                    Text("\(suggestion.city), \(suggestion.state)")
+                        .padding(10)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color.white)
+                        .foregroundColor(.primary)
                 }
+                .buttonStyle(PlainButtonStyle())
             }
         }
         .frame(maxHeight: 200) // Limit dropdown height

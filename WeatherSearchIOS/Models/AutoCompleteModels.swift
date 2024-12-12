@@ -1,11 +1,20 @@
 import Foundation
 
 // Represents a single autocomplete suggestion
-struct AutocompleteSuggestion: Identifiable {
-    let id = UUID()
+struct AutocompleteSuggestion: Hashable {
     let city: String
     let state: String
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(city)
+        hasher.combine(state)
+    }
+
+    static func ==(lhs: AutocompleteSuggestion, rhs: AutocompleteSuggestion) -> Bool {
+        return lhs.city == rhs.city && lhs.state == rhs.state
+    }
 }
+
 
 // Represents the autocomplete API response
 struct AutocompleteResponse: Codable {
