@@ -5,9 +5,10 @@ struct SuggestionsDropdownView: View {
     let onSelect: (AutocompleteSuggestion) -> Void
 
     var body: some View {
+        // Remove fixedSize for now and just let it layout naturally
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                ForEach(suggestions, id: \.city) { suggestion in
+                ForEach(suggestions, id: \.self) { suggestion in
                     Button(action: {
                         onSelect(suggestion)
                     }) {
@@ -21,9 +22,6 @@ struct SuggestionsDropdownView: View {
                 }
             }
         }
-        .frame(maxHeight: 200) // Limit dropdown height
-        .background(Color.white)
-        .cornerRadius(8)
-        .shadow(color: .gray.opacity(0.4), radius: 4, x: 0, y: 2)
+        .frame(maxHeight: 200) // Allow scroll if many items
     }
 }
