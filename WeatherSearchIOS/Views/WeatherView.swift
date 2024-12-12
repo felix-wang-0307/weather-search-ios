@@ -44,8 +44,15 @@ struct WeatherView: View {
                             }
                         )
 
-                        WeatherSummaryView(viewModel: viewModel)
-                            .padding(.horizontal, 15)
+                        // Make WeatherSummaryView clickable
+                        Button(action: {
+                            selectedCity = viewModel.cityName
+                        }) {
+                            WeatherSummaryView(viewModel: viewModel)
+                                .padding(.horizontal, 15)
+                        }
+                        .buttonStyle(PlainButtonStyle()) // No default button styling
+
                         WeatherDetailsView(viewModel: viewModel)
                             .padding(.horizontal, 15)
                         WeeklyWeatherView(viewModel: viewModel)
@@ -65,9 +72,7 @@ struct WeatherView: View {
                         }
                     )
                     .frame(maxWidth: searchBarFrame.width, maxHeight: 200)
-                    // Position it just below the search bar
                     .position(x: searchBarFrame.midX, y: searchBarFrame.maxY + 5)
-                    // Adjust the +5 as needed for desired spacing
                 }
 
                 // Navigation to CityDetailView
@@ -90,12 +95,6 @@ struct WeatherView: View {
                 fetchWeatherForCity(newCityName)
             }
         }
-       
-    }
-
-    private func handleCitySelection(_ city: String) {
-        selectedCity = city
-        fetchWeatherForCity(city)
     }
 
     private func fetchWeatherForCurrentLocation() {
