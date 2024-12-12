@@ -10,15 +10,16 @@
 		FC035ED82D0AC256008537AD /* CityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC035ED72D0AC256008537AD /* CityDetailView.swift */; };
 		FC035EDB2D0AD431008537AD /* WeatherTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC035EDA2D0AD431008537AD /* WeatherTabView.swift */; };
 		FC035EDD2D0ADA1E008537AD /* TodayWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC035EDC2D0ADA1E008537AD /* TodayWeatherView.swift */; };
+		FC035EDF2D0B4D89008537AD /* WeatherCodeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC035EDE2D0B4D89008537AD /* WeatherCodeMapper.swift */; };
+		FC035EE12D0B4DCB008537AD /* weatherCode.json in Resources */ = {isa = PBXBuildFile; fileRef = FC035EE02D0B4DCB008537AD /* weatherCode.json */; };
+		FC035EE42D0B530E008537AD /* WeeklyChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC035EE32D0B530E008537AD /* WeeklyChartView.swift */; };
+		FC035EE72D0B57DC008537AD /* WeeklyChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC035EE62D0B57DC008537AD /* WeeklyChartViewController.swift */; };
+		FC035EEB2D0B600A008537AD /* WeeklyChartContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC035EEA2D0B600A008537AD /* WeeklyChartContainer.swift */; };
+		FC035EED2D0B63D3008537AD /* Highcharts.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC035EEC2D0B63D3008537AD /* Highcharts.xcframework */; };
 		FCA2F6ED2D0729750067EF0F /* WeatherSearchIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA2F6EC2D0729750067EF0F /* WeatherSearchIOSApp.swift */; };
 		FCA2F6EF2D0729750067EF0F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA2F6EE2D0729750067EF0F /* ContentView.swift */; };
 		FCA2F6F12D0729750067EF0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCA2F6F02D0729750067EF0F /* Assets.xcassets */; };
 		FCA2F6F42D0729750067EF0F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCA2F6F32D0729750067EF0F /* Preview Assets.xcassets */; };
-		FCA2F6FC2D0729980067EF0F /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = FCA2F6FB2D0729980067EF0F /* SwiftyJSON */; };
-		FCA2F6FF2D0729DC0067EF0F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FCA2F6FE2D0729DC0067EF0F /* Alamofire */; };
-		FCA2F7012D0729DC0067EF0F /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = FCA2F7002D0729DC0067EF0F /* AlamofireDynamic */; };
-		FCA2F7042D0729FE0067EF0F /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = FCA2F7032D0729FE0067EF0F /* Toast */; };
-		FCA2F7072D072A170067EF0F /* SwiftSpinner in Frameworks */ = {isa = PBXBuildFile; productRef = FCA2F7062D072A170067EF0F /* SwiftSpinner */; };
 		FCA2F70A2D072AD90067EF0F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA2F7092D072AD90067EF0F /* NetworkManager.swift */; };
 		FCA2F70F2D072B660067EF0F /* WeatherModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA2F70E2D072B660067EF0F /* WeatherModels.swift */; };
 		FCA2F7182D07CBBF0067EF0F /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA2F7172D07CBBF0067EF0F /* SearchBarView.swift */; };
@@ -34,12 +35,23 @@
 		FCAA2A7B2D0978B000AE754E /* GeocodingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAA2A7A2D0978B000AE754E /* GeocodingController.swift */; };
 		FCAA2A7E2D0A973B00AE754E /* SuggestionsDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAA2A7D2D0A973B00AE754E /* SuggestionsDropdownView.swift */; };
 		FCAA2A802D0A9A0900AE754E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAA2A7F2D0A9A0900AE754E /* SearchView.swift */; };
+		FCEF2EC92D0B98770088C1B5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FCEF2EC82D0B98770088C1B5 /* Alamofire */; };
+		FCEF2ECB2D0B98770088C1B5 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = FCEF2ECA2D0B98770088C1B5 /* AlamofireDynamic */; };
+		FCEF2ECE2D0B98830088C1B5 /* SwiftSpinner in Frameworks */ = {isa = PBXBuildFile; productRef = FCEF2ECD2D0B98830088C1B5 /* SwiftSpinner */; };
+		FCEF2ED12D0B988F0088C1B5 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = FCEF2ED02D0B988F0088C1B5 /* Toast */; };
+		FCEF2ED42D0B98960088C1B5 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = FCEF2ED32D0B98960088C1B5 /* SwiftyJSON */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		FC035ED72D0AC256008537AD /* CityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetailView.swift; sourceTree = "<group>"; };
 		FC035EDA2D0AD431008537AD /* WeatherTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTabView.swift; sourceTree = "<group>"; };
 		FC035EDC2D0ADA1E008537AD /* TodayWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWeatherView.swift; sourceTree = "<group>"; };
+		FC035EDE2D0B4D89008537AD /* WeatherCodeMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCodeMapper.swift; sourceTree = "<group>"; };
+		FC035EE02D0B4DCB008537AD /* weatherCode.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = weatherCode.json; sourceTree = "<group>"; };
+		FC035EE32D0B530E008537AD /* WeeklyChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyChartView.swift; sourceTree = "<group>"; };
+		FC035EE62D0B57DC008537AD /* WeeklyChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyChartViewController.swift; sourceTree = "<group>"; };
+		FC035EEA2D0B600A008537AD /* WeeklyChartContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyChartContainer.swift; sourceTree = "<group>"; };
+		FC035EEC2D0B63D3008537AD /* Highcharts.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Highcharts.xcframework; sourceTree = "<group>"; };
 		FC2267412D0AAA7500A049CC /* WeatherSearchIOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WeatherSearchIOS.xctestplan; sourceTree = "<group>"; };
 		FCA2F6E92D0729750067EF0F /* WeatherSearchIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherSearchIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCA2F6EC2D0729750067EF0F /* WeatherSearchIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSearchIOSApp.swift; sourceTree = "<group>"; };
@@ -68,11 +80,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCA2F7042D0729FE0067EF0F /* Toast in Frameworks */,
-				FCA2F7072D072A170067EF0F /* SwiftSpinner in Frameworks */,
-				FCA2F6FC2D0729980067EF0F /* SwiftyJSON in Frameworks */,
-				FCA2F7012D0729DC0067EF0F /* AlamofireDynamic in Frameworks */,
-				FCA2F6FF2D0729DC0067EF0F /* Alamofire in Frameworks */,
+				FCEF2ED42D0B98960088C1B5 /* SwiftyJSON in Frameworks */,
+				FCEF2ECE2D0B98830088C1B5 /* SwiftSpinner in Frameworks */,
+				FC035EED2D0B63D3008537AD /* Highcharts.xcframework in Frameworks */,
+				FCEF2ECB2D0B98770088C1B5 /* AlamofireDynamic in Frameworks */,
+				FCEF2ED12D0B988F0088C1B5 /* Toast in Frameworks */,
+				FCEF2EC92D0B98770088C1B5 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,13 +97,24 @@
 			children = (
 				FC035EDA2D0AD431008537AD /* WeatherTabView.swift */,
 				FC035EDC2D0ADA1E008537AD /* TodayWeatherView.swift */,
+				FC035EE32D0B530E008537AD /* WeeklyChartView.swift */,
+				FC035EEA2D0B600A008537AD /* WeeklyChartContainer.swift */,
 			);
 			path = DetailViews;
+			sourceTree = "<group>";
+		};
+		FC035EE52D0B56CD008537AD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FC035EEC2D0B63D3008537AD /* Highcharts.xcframework */,
+			);
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 		FCA2F6E02D0729750067EF0F = {
 			isa = PBXGroup;
 			children = (
+				FC035EE52D0B56CD008537AD /* Frameworks */,
 				FC2267412D0AAA7500A049CC /* WeatherSearchIOS.xctestplan */,
 				FCA2F6EB2D0729750067EF0F /* WeatherSearchIOS */,
 				FCA2F6EA2D0729750067EF0F /* Products */,
@@ -144,6 +168,8 @@
 			children = (
 				FCA2F70E2D072B660067EF0F /* WeatherModels.swift */,
 				FCAA2A742D09763500AE754E /* AutoCompleteModels.swift */,
+				FC035EDE2D0B4D89008537AD /* WeatherCodeMapper.swift */,
+				FC035EE02D0B4DCB008537AD /* weatherCode.json */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -155,6 +181,7 @@
 				FCAA2A722D09703500AE754E /* LocationManager.swift */,
 				FCAA2A782D09771F00AE754E /* SearchBarController.swift */,
 				FCAA2A7A2D0978B000AE754E /* GeocodingController.swift */,
+				FC035EE62D0B57DC008537AD /* WeeklyChartViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -206,11 +233,11 @@
 			);
 			name = WeatherSearchIOS;
 			packageProductDependencies = (
-				FCA2F6FB2D0729980067EF0F /* SwiftyJSON */,
-				FCA2F6FE2D0729DC0067EF0F /* Alamofire */,
-				FCA2F7002D0729DC0067EF0F /* AlamofireDynamic */,
-				FCA2F7032D0729FE0067EF0F /* Toast */,
-				FCA2F7062D072A170067EF0F /* SwiftSpinner */,
+				FCEF2EC82D0B98770088C1B5 /* Alamofire */,
+				FCEF2ECA2D0B98770088C1B5 /* AlamofireDynamic */,
+				FCEF2ECD2D0B98830088C1B5 /* SwiftSpinner */,
+				FCEF2ED02D0B988F0088C1B5 /* Toast */,
+				FCEF2ED32D0B98960088C1B5 /* SwiftyJSON */,
 			);
 			productName = WeatherSearchIOS;
 			productReference = FCA2F6E92D0729750067EF0F /* WeatherSearchIOS.app */;
@@ -241,10 +268,10 @@
 			);
 			mainGroup = FCA2F6E02D0729750067EF0F;
 			packageReferences = (
-				FCA2F6FA2D0729980067EF0F /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
-				FCA2F6FD2D0729DC0067EF0F /* XCRemoteSwiftPackageReference "Alamofire" */,
-				FCA2F7022D0729FE0067EF0F /* XCRemoteSwiftPackageReference "Toast-Swift" */,
-				FCA2F7052D072A170067EF0F /* XCRemoteSwiftPackageReference "SwiftSpinner" */,
+				FCEF2EC72D0B98770088C1B5 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				FCEF2ECC2D0B98830088C1B5 /* XCRemoteSwiftPackageReference "SwiftSpinner" */,
+				FCEF2ECF2D0B988F0088C1B5 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				FCEF2ED22D0B98960088C1B5 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = FCA2F6EA2D0729750067EF0F /* Products */;
 			projectDirPath = "";
@@ -260,6 +287,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC035EE12D0B4DCB008537AD /* weatherCode.json in Resources */,
 				FCA2F6F42D0729750067EF0F /* Preview Assets.xcassets in Resources */,
 				FCA2F6F12D0729750067EF0F /* Assets.xcassets in Resources */,
 			);
@@ -272,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC035EE72D0B57DC008537AD /* WeeklyChartViewController.swift in Sources */,
 				FCAA2A6E2D094F7900AE754E /* WeeklyWeatherView.swift in Sources */,
 				FC035EDD2D0ADA1E008537AD /* TodayWeatherView.swift in Sources */,
 				FCA2F71C2D07EDEF0067EF0F /* WeatherDetailsView.swift in Sources */,
@@ -285,12 +314,15 @@
 				FCA2F7182D07CBBF0067EF0F /* SearchBarView.swift in Sources */,
 				FC035ED82D0AC256008537AD /* CityDetailView.swift in Sources */,
 				FCA2F6ED2D0729750067EF0F /* WeatherSearchIOSApp.swift in Sources */,
+				FC035EDF2D0B4D89008537AD /* WeatherCodeMapper.swift in Sources */,
 				FCAA2A772D0976C300AE754E /* AutoCompleteViewModel.swift in Sources */,
 				FCA2F71A2D07E9300067EF0F /* WeatherSummaryView.swift in Sources */,
 				FCAA2A752D09763500AE754E /* AutoCompleteModels.swift in Sources */,
 				FC035EDB2D0AD431008537AD /* WeatherTabView.swift in Sources */,
+				FC035EEB2D0B600A008537AD /* WeeklyChartContainer.swift in Sources */,
 				FCAA2A792D09771F00AE754E /* SearchBarController.swift in Sources */,
 				FCA2F70F2D072B660067EF0F /* WeatherModels.swift in Sources */,
+				FC035EE42D0B530E008537AD /* WeeklyChartView.swift in Sources */,
 				FCA2F71E2D07FF4A0067EF0F /* WeatherView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,7 +382,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -407,7 +439,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -497,15 +529,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FCA2F6FA2D0729980067EF0F /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.2;
-			};
-		};
-		FCA2F6FD2D0729DC0067EF0F /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		FCEF2EC72D0B98770088C1B5 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -513,15 +537,7 @@
 				minimumVersion = 5.10.2;
 			};
 		};
-		FCA2F7022D0729FE0067EF0F /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.1.1;
-			};
-		};
-		FCA2F7052D072A170067EF0F /* XCRemoteSwiftPackageReference "SwiftSpinner" */ = {
+		FCEF2ECC2D0B98830088C1B5 /* XCRemoteSwiftPackageReference "SwiftSpinner" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/icanzilb/SwiftSpinner.git";
 			requirement = {
@@ -529,33 +545,49 @@
 				minimumVersion = 2.2.0;
 			};
 		};
+		FCEF2ECF2D0B988F0088C1B5 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
+		FCEF2ED22D0B98960088C1B5 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FCA2F6FB2D0729980067EF0F /* SwiftyJSON */ = {
+		FCEF2EC82D0B98770088C1B5 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FCA2F6FA2D0729980067EF0F /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
-		};
-		FCA2F6FE2D0729DC0067EF0F /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FCA2F6FD2D0729DC0067EF0F /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = FCEF2EC72D0B98770088C1B5 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
-		FCA2F7002D0729DC0067EF0F /* AlamofireDynamic */ = {
+		FCEF2ECA2D0B98770088C1B5 /* AlamofireDynamic */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FCA2F6FD2D0729DC0067EF0F /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = FCEF2EC72D0B98770088C1B5 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = AlamofireDynamic;
 		};
-		FCA2F7032D0729FE0067EF0F /* Toast */ = {
+		FCEF2ECD2D0B98830088C1B5 /* SwiftSpinner */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FCA2F7022D0729FE0067EF0F /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			package = FCEF2ECC2D0B98830088C1B5 /* XCRemoteSwiftPackageReference "SwiftSpinner" */;
+			productName = SwiftSpinner;
+		};
+		FCEF2ED02D0B988F0088C1B5 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FCEF2ECF2D0B988F0088C1B5 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
 		};
-		FCA2F7062D072A170067EF0F /* SwiftSpinner */ = {
+		FCEF2ED32D0B98960088C1B5 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FCA2F7052D072A170067EF0F /* XCRemoteSwiftPackageReference "SwiftSpinner" */;
-			productName = SwiftSpinner;
+			package = FCEF2ED22D0B98960088C1B5 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

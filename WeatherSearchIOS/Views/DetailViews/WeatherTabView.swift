@@ -22,7 +22,7 @@ struct WeatherTabView: View {
                     }
                     .tag(0)
 
-                WeeklyWeatherView(viewModel: viewModel)
+                WeeklyChartView(viewModel: viewModel)
                     .padding(.horizontal, 15)
                     .tabItem {
                         Image(systemName: "chart.line.uptrend.xyaxis")

@@ -22,10 +22,6 @@ struct CityDetailView: View {
                     // Weather Details
                     WeatherDetailsView(viewModel: viewModel)
                         .padding(.horizontal, 15)
-                    
-                    // Weekly Forecast
-                    WeeklyWeatherView(viewModel: viewModel)
-                        .padding(.horizontal, 15)
                 }
                 .padding(.top, 20)
                 

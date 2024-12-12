@@ -20,6 +20,9 @@ struct WeatherData: Identifiable, Equatable {
     let visibility: String? // Visibility value
     let windSpeed: String? // Wind speed
     let pressureSeaLevel: String? // Sea level
+    let cloudCover: String? // Cloud cover
+    let uvIndex: String? // UV index
+    let precipitation: String? // Precipitation
     
     init(
         date: String? = nil,
@@ -31,7 +34,10 @@ struct WeatherData: Identifiable, Equatable {
         temperatureLow: String? = nil,
         visibility: String? = nil,
         windSpeed: String? = nil,
-        pressureSeaLevel: String? = nil
+        pressureSeaLevel: String? = nil,
+        cloudCover: String? = nil,
+        uvIndex: String? = nil,
+        precipitation: String? = nil
     ) {
         self.date = date
         self.weatherCode = weatherCode
@@ -43,6 +49,15 @@ struct WeatherData: Identifiable, Equatable {
         self.visibility = visibility
         self.windSpeed = windSpeed
         self.pressureSeaLevel = pressureSeaLevel
+        self.cloudCover = cloudCover
+        self.uvIndex = uvIndex
+        self.precipitation = precipitation
+    }
+    
+    func getWeatherDesc() -> String {
+        debugPrint(weatherCode ?? "fuck")
+        let mapper = WeatherCodeMapper()
+        return mapper.descriptionForCode(weatherCode ?? "1000")
     }
     
     /// Formats the ISO date into a MM/dd/yyyy format.

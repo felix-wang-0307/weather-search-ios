@@ -14,7 +14,7 @@ struct WeatherSummaryView: View {
                     )
                 
                 HStack {
-                    Image(systemName: viewModel.currentWeather?.weatherCode ?? "cloud") // Dynamic weather image
+                    Image(viewModel.currentWeather?.getWeatherDesc() ?? "Cloudy") // Dynamic weather image
                         .resizable()
                         .scaledToFit()
                         .frame(width: 150, height: 150)
@@ -22,8 +22,10 @@ struct WeatherSummaryView: View {
                     VStack(alignment: .leading, spacing: 20) {
                         Text(viewModel.currentWeather?.temperatureHigh ?? "--°F") // High temperature
                             .font(.system(size: 24, weight: .bold))
+                        
+                        Text(viewModel.currentWeather?.getWeatherDesc() ?? "Cloudy") // Date
+                            
                         Text(viewModel.cityName) // City
-                        Text(viewModel.currentWeather?.getFormattedDate() ?? "--/--/----") // Date
                             .font(.title2)
                             .bold()
                     }

@@ -10,7 +10,7 @@ struct WeeklyWeatherView: View {
                     HStack(alignment: .center) {
                         Text(weather.getFormattedDate() )
                             .frame(width: 90)
-                        Image(systemName: weather.weatherCode ?? "cloud")
+                        Image(weather.getWeatherDesc())
                             .resizable()
                             .scaledToFit()
                             .frame(width: 30, height: 30)

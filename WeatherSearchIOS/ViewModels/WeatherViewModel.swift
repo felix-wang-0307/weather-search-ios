@@ -54,7 +54,7 @@ class WeatherViewModel: ObservableObject {
         let values = interval["values"]
         return WeatherData(
             date: interval["startTime"].string,
-            weatherCode: mapWeatherCodeToIcon(values["weatherCode"].int),
+            weatherCode: values["weatherCode"].int.flatMap { String($0) },  // Treat as string
             sunriseTime: values["sunriseTime"].string,
             sunsetTime: values["sunsetTime"].string,
             humidity: values["humidity"].double.flatMap { formatToTwoDecimals($0) + "%" },
@@ -69,18 +69,5 @@ class WeatherViewModel: ObservableObject {
     /// Format a Double to two decimal places as a String
     private func formatToTwoDecimals(_ value: Double) -> String {
         String(format: "%.2f", value)
-    }
-
-    /// Map weather code to weather icon name
-    private func mapWeatherCodeToIcon(_ code: Int?) -> String {
-        guard let code = code else { return "cloud" }
-        switch code {
-        case 1000: return "sun.max" // Clear
-        case 1001: return "cloud" // Cloudy
-        case 2000: return "cloud.fog" // Fog
-        case 4200: return "cloud.rain" // Light Rain
-        case 6000: return "cloud.snow" // Light Snow
-        default: return "cloud" // Default to cloudy
-        }
     }
 }
