@@ -55,7 +55,7 @@ struct WeatherData: Identifiable, Equatable {
     }
     
     func getWeatherDesc() -> String {
-        debugPrint(weatherCode ?? "fuck")
+        debugPrint(weatherCode ?? "1000")
         let mapper = WeatherCodeMapper()
         return mapper.descriptionForCode(weatherCode ?? "1000")
     }

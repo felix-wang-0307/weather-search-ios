@@ -22,6 +22,7 @@ class WeatherViewModel: ObservableObject {
 
     /// Fetch weather data based on latitude and longitude
     func fetchWeather(latitude: Double, longitude: Double) {
+        debugPrint("Fetching weather data for \(latitude), \(longitude)")
         let url = "\(baseUrl)/weather"
         
         AF.request(url, parameters: ["latitude": latitude, "longitude": longitude]).responseJSON { response in
@@ -53,6 +54,7 @@ class WeatherViewModel: ObservableObject {
         let currentWeatherJSON = json["data"]["timelines"][2]["intervals"][0]
         let currentWeather = parseInterval(interval: currentWeatherJSON)
         
+        debugPrint(json["data"]["city"].stringValue)
         DispatchQueue.main.async {
             self.weeklyWeather = weatherList
             self.currentWeather = currentWeather

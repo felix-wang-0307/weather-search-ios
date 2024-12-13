@@ -5,8 +5,8 @@ import CoreLocation
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var cityName: String = "Unknown"
-    @Published var latitude: Double = 0.0
-    @Published var longitude: Double = 0.0
+    @Published var latitude: Double = 40.7128
+    @Published var longitude: Double = -74.0060 // Default to New York City
     
     private let locationManager = CLLocationManager()
     

@@ -102,7 +102,7 @@ struct CityDetailView: View {
         
         let temperature = weather.temperatureHigh ?? "--°F"
         let conditions = weather.weatherCode ?? "Unknown Conditions"
-        let tweetText = "The current weather in \(cityName) is \(temperature) and \(conditions)"
+        let tweetText = "The current weather in \(cityName) on \(weather.getFormattedDate()) is \(temperature). The weather conditions are \(conditions) #CSCI571WeatherSearch"
         
         guard let encodedText = tweetText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
         let tweetURLString = "https://twitter.com/intent/tweet?text=\(encodedText)"

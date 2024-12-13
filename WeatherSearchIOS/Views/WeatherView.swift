@@ -77,8 +77,8 @@ struct WeatherView: View {
                 
                 // Navigation to CityDetailView
                 NavigationLink(
-                    destination: CityDetailView(cityName: selectedCity ?? ""),
-                    tag: selectedCity ?? "",
+                    destination: WeatherTabView(cityName: selectedCity ?? viewModel.cityName),
+                    tag: selectedCity ?? viewModel.cityName,
                     selection: $selectedCity
                 ) {
                     EmptyView()
@@ -102,18 +102,18 @@ struct WeatherView: View {
                     viewModel.cityName = newCityName
                 } else {
                     fetchWeatherForCurrentLocation()
+                    selectedCity = viewModel.cityName
                 }
             }
         }
     }
     
     private func fetchWeatherForCurrentLocation() {
-        guard locationManager.latitude != 0, locationManager.longitude != 0 else { return }
         viewModel.fetchWeather(latitude: locationManager.latitude, longitude: locationManager.longitude)
-        viewModel.cityName = locationManager.cityName
     }
     
     private func fetchWeatherForCity(_ city: String) {
+        debugPrint(city)
         GeocodingController().fetchCoordinates(for: city) { result in
             switch result {
             case .success(let coordinates):

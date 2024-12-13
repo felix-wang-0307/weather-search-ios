@@ -93,7 +93,11 @@ struct WeatherTabView: View {
         }
         let temperature = weather.temperatureHigh ?? "--°F"
         let conditions = weather.weatherCode ?? "Unknown Conditions"
-        let tweetText = "The current weather in \(cityName) is \(temperature) and \(conditions)"
+        // Tweet Content Example:
+          // The temperature in Los Angeles, California on Thursday, Oct. 10, 2024 is 75°F.
+          // The weather conditions are Clear #CSCI571WeatherSearch
+        let tweetText = "The current weather in \(cityName) on \(weather.getFormattedDate()) is \(temperature). The weather conditions are \(conditions) #CSCI571WeatherSearch"
+        
         guard let encodedText = tweetText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             return
         }
