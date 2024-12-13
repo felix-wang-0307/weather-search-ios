@@ -9,6 +9,16 @@ class WeatherViewModel: ObservableObject {
     @Published var cityName: String = "Unknown" // Current city name
 
     private var baseUrl: String = "https://weather-search-web-571.wn.r.appspot.com" // API base URL
+    
+    init() {
+        if cityName == "Unknown" {
+            let locationManager = LocationManager()
+            let latitude = locationManager.latitude
+            let longitude = locationManager.longitude
+            cityName = locationManager.cityName
+            fetchWeather(latitude: latitude, longitude: longitude)
+        }
+    }
 
     /// Fetch weather data based on latitude and longitude
     func fetchWeather(latitude: Double, longitude: Double) {
@@ -46,6 +56,7 @@ class WeatherViewModel: ObservableObject {
         DispatchQueue.main.async {
             self.weeklyWeather = weatherList
             self.currentWeather = currentWeather
+            self.cityName = json["data"]["city"].stringValue
         }
     }
     
@@ -62,7 +73,10 @@ class WeatherViewModel: ObservableObject {
             temperatureLow: values["temperatureMin"].double.flatMap { formatToTwoDecimals($0) + "°F" },
             visibility: values["visibility"].double.flatMap { formatToTwoDecimals($0) + " mi" },
             windSpeed: values["windSpeed"].double.flatMap { formatToTwoDecimals($0) + " mph" },
-            pressureSeaLevel: values["pressureSeaLevel"].double.flatMap { formatToTwoDecimals($0) + " inHg" }
+            pressureSeaLevel: values["pressureSeaLevel"].double.flatMap { formatToTwoDecimals($0) + " inHg" },
+            cloudCover: values["cloudCover"].double.flatMap { formatToTwoDecimals($0) + "%" },
+            uvIndex: values["uvIndex"].int.flatMap { String($0) },
+            precipitation: values["precipitationProbability"].double.flatMap { formatToTwoDecimals($0) + "%" }
         )
     }
     

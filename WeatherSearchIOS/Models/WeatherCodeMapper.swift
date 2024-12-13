@@ -37,7 +37,6 @@ class WeatherCodeMapper {
     }
     
     func descriptionForCode(_ code: String) -> String {
-        print(code)
         return mappings[code]?.desc ?? "Unknown"
     }
 

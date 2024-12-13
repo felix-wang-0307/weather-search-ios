@@ -48,9 +48,8 @@ struct WeeklyChartContainer: View {
                         .frame(height: 300)
                         .padding()
                     }
-                    
+
                     WeeklyChartView(viewModel: viewModel)
-                        .padding(.bottom, 100)
                 }
             }
         }

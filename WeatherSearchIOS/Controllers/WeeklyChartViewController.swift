@@ -13,6 +13,13 @@ class WeeklyChartViewController: UIViewController {
 
         setupChart()
         updateChartData()
+        
+        NSLayoutConstraint.activate([
+            chartView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            chartView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            chartView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            chartView.heightAnchor.constraint(equalToConstant: 300) // or some dynamic value
+        ])
     }
 
     private func setupChart() {
@@ -21,9 +28,9 @@ class WeeklyChartViewController: UIViewController {
         let chart = HIChart()
         chart.type = "arearange"
         chart.zoomType = "x"
-        chart.scrollablePlotArea = HIScrollablePlotArea()
-        chart.scrollablePlotArea.minWidth = 600
-        chart.scrollablePlotArea.scrollPositionX = 1
+//        chart.scrollablePlotArea = HIScrollablePlotArea()
+//        chart.scrollablePlotArea.minWidth = 600
+//        chart.scrollablePlotArea.scrollPositionX = 1
         options.chart = chart
 
         let title = HITitle()

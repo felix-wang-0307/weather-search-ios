@@ -4,9 +4,9 @@ import UIKit
 import CoreLocation
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    @Published var cityName: String = "Unknown Location"
-    @Published var latitude: Double = 42.3601
-    @Published var longitude: Double = -71.0589
+    @Published var cityName: String = "Unknown"
+    @Published var latitude: Double = 0.0
+    @Published var longitude: Double = 0.0
     
     private let locationManager = CLLocationManager()
     
@@ -16,7 +16,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         // Check the authorization status
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
-            locationManager.requestWhenInUseAuthorization() // Request permission
+//            locationManager.requestWhenInUseAuthorization() // Request permission
+            locationManager.startUpdatingLocation() // Start updating location if authorized
         case .restricted, .denied:
             print("Location access denied or restricted.")
         case .authorizedWhenInUse, .authorizedAlways:
@@ -37,8 +38,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         // Call reverse geocoding to get the city name
         reverseGeocode(location: location)
     }
-    
-    
     
     // Reverse geocode to get city name
     private func reverseGeocode(location: CLLocation) {
@@ -67,6 +66,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             showLocationPermissionAlert()
         case .notDetermined:
             print("Location permission not determined yet. Requesting permission.")
+            locationManager.startUpdatingLocation() // Start location updates when authorized
             locationManager.requestWhenInUseAuthorization()
         @unknown default:
             break

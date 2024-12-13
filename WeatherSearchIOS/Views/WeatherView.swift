@@ -10,13 +10,13 @@ struct WeatherView: View {
     @State private var showSuggestions: Bool = false
     @State private var searchBarFrame: CGRect = .zero
     private let searchBarController: SearchBarController
-
+    
     init() {
         let autocompleteViewModel = AutocompleteViewModel()
         self._autocompleteViewModel = StateObject(wrappedValue: autocompleteViewModel)
         self.searchBarController = SearchBarController(viewModel: autocompleteViewModel)
     }
-
+    
     var body: some View {
         NavigationView {
             ZStack(alignment: .top) {
@@ -28,7 +28,7 @@ struct WeatherView: View {
                         // Tap background to dismiss suggestions
                         showSuggestions = false
                     }
-
+                
                 ScrollView {
                     VStack(spacing: 20) {
                         // UISearchBar
@@ -43,7 +43,7 @@ struct WeatherView: View {
                                 }
                             }
                         )
-
+                        
                         // Make WeatherSummaryView clickable
                         Button(action: {
                             selectedCity = viewModel.cityName
@@ -52,7 +52,7 @@ struct WeatherView: View {
                                 .padding(.horizontal, 15)
                         }
                         .buttonStyle(PlainButtonStyle()) // No default button styling
-
+                        
                         WeatherDetailsView(viewModel: viewModel)
                             .padding(.horizontal, 15)
                         WeeklyWeatherView(viewModel: viewModel)
@@ -60,7 +60,7 @@ struct WeatherView: View {
                     }
                     .padding()
                 }
-
+                
                 // Suggestions table just below the search bar
                 if showSuggestions && !autocompleteViewModel.suggestions.isEmpty {
                     UIKitSuggestionsTableView(
@@ -74,7 +74,7 @@ struct WeatherView: View {
                     .frame(maxWidth: searchBarFrame.width, maxHeight: 200)
                     .position(x: searchBarFrame.midX, y: searchBarFrame.maxY + 5)
                 }
-
+                
                 // Navigation to CityDetailView
                 NavigationLink(
                     destination: CityDetailView(cityName: selectedCity ?? ""),
@@ -86,23 +86,33 @@ struct WeatherView: View {
                 .hidden()
             }
             .onAppear {
-                fetchWeatherForCurrentLocation()
+                // Try fetching weather for current location if available
+                if locationManager.cityName != "Unknown" {
+                    viewModel.fetchWeather(latitude: locationManager.latitude, longitude: locationManager.longitude)
+                    viewModel.cityName = locationManager.cityName
+                } else {
+                    fetchWeatherForCurrentLocation()
+                }
             }
-            .onReceive(locationManager.$cityName
-                        .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
-                        .removeDuplicates()) { newCityName in
-                viewModel.cityName = newCityName
-                fetchWeatherForCity(newCityName)
+            // Listen for changes in locationManager.cityName
+            .onReceive(locationManager.$cityName) { newCityName in
+                // If no manual city is selected yet, use this new city
+                if newCityName != "Unknown" {
+                    viewModel.fetchWeather(latitude: locationManager.latitude, longitude: locationManager.longitude)
+                    viewModel.cityName = newCityName
+                } else {
+                    fetchWeatherForCurrentLocation()
+                }
             }
         }
     }
-
+    
     private func fetchWeatherForCurrentLocation() {
         guard locationManager.latitude != 0, locationManager.longitude != 0 else { return }
         viewModel.fetchWeather(latitude: locationManager.latitude, longitude: locationManager.longitude)
         viewModel.cityName = locationManager.cityName
     }
-
+    
     private func fetchWeatherForCity(_ city: String) {
         GeocodingController().fetchCoordinates(for: city) { result in
             switch result {

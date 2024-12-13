@@ -22,7 +22,7 @@ struct WeatherTabView: View {
                     }
                     .tag(0)
 
-                WeeklyChartView(viewModel: viewModel)
+                WeeklyChartContainer(viewModel: viewModel)
                     .padding(.horizontal, 15)
                     .tabItem {
                         Image(systemName: "chart.line.uptrend.xyaxis")
@@ -30,7 +30,7 @@ struct WeatherTabView: View {
                     }
                     .tag(1)
 
-                WeatherDetailsView(viewModel: viewModel)
+                GaugeChartContainerView(viewModel: viewModel)
                     .padding(.horizontal, 15)
                     .tabItem {
                         Image(systemName: "cloud")
